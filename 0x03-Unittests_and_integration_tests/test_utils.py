@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """ Unittest utils """
 import unittest
 from parameterized import parameterized
@@ -44,17 +45,17 @@ class TestGetJson(unittest.TestCase):
     )
     def test_get_json(self, url, payload):
         """
-        method to test that the method returns what it is supposed to.
+        method to test that method returns what it is supposed to.
         """
 
         class Mocked(Mock):
             """
-            class that inherits from Mock
+            class inherits from Mock
             """
 
             def json(self):
                 """
-                json returning a payload
+                json returning payload
                 """
                 return payload
 
