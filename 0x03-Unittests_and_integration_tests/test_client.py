@@ -20,7 +20,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
         client = GithubOrgClient(org_name)
         self.assertEqual(client.org, expected_payload)
-        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org_name}")
+        mock_get_json.assert_called_once_with(
+            f"https://api.github.com/orgs/{org_name}")
 
     @patch("client.GithubOrgClient.org", new_callable=PropertyMock)
     def test_public_repos_url(self, mock_org):
@@ -31,7 +32,8 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_org.assert_called_once()
 
     @patch("client.get_json")
-    @patch("client.GithubOrgClient._public_repos_url", new_callable=PropertyMock)
+    @patch(
+        "client.GithubOrgClient._public_repos_url", new_callable=PropertyMock)
     def test_public_repos(self, mock_public_repos_url, mock_get_json):
         """Test that public_repos returns the expected list of repos"""
         mock_public_repos_url.return_value = "http://example.com/repos"
@@ -55,6 +57,7 @@ class TestGithubOrgClient(unittest.TestCase):
         client = GithubOrgClient("test_org")
         self.assertEqual(client.has_license(repo, license_key), expected)
 
+
 @parameterized_class([
     {
         "org_payload": {"repos_url": "http://example.com/org"},
@@ -73,7 +76,8 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class method to start patcher"""
-        cls.get_patcher = patch("requests.get", side_effect=cls.get_side_effect)
+        cls.get_patcher = patch(
+            "requests.get", side_effect=cls.get_side_effect)
         cls.mock_get = cls.get_patcher.start()
 
     @classmethod
@@ -98,7 +102,9 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def test_public_repos_with_license(self):
         """Test public_repos method with license filter"""
         client = GithubOrgClient("test_org")
-        self.assertEqual(client.public_repos(license="apache-2.0"), self.apache2_repos)
+        self.assertEqual(client.public_repos(
+            license="apache-2.0"), self.apache2_repos)
+
 
 if __name__ == "__main__":
     unittest.main()
