@@ -7,6 +7,7 @@ from unittest.mock import patch, PropertyMock, Mock
 from client import GithubOrgClient
 from utils import get_json
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Test class for GithubOrgClient"""
 
